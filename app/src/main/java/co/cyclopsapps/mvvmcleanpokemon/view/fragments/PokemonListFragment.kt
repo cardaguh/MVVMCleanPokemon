@@ -46,11 +46,13 @@ class PokemonListFragment : Fragment(), ClickListener {
         binding.recyclerview.adapter = mAdapter
 
 
+        //observador de lista completa
         viewModel.listState.observe(viewLifecycleOwner) {
-            binding.progress.isInvisible = true
             mAdapter?.setItems(list = it)
+            binding.progress.isInvisible = true
         }
 
+        //observador de progress
         viewModel.progressState.observe(viewLifecycleOwner) { show ->
             binding.progress.isVisible = show
         }

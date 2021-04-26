@@ -57,6 +57,7 @@ class RecyclerPokemonViewModel(app: Application) : AndroidViewModel(app), Corout
             val response = repository.getPokemon()
             response?.body()?.pokemon?.let { list ->
                 _listState.value = list
+                //_progressState.value = false
             }
         }
     }
