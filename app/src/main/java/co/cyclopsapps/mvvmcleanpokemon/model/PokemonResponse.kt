@@ -15,6 +15,7 @@ data class Pager(
     val prev: String
 )
 
+
 data class PokemonDataModel(
     val id: Long,
     val name: String = "",

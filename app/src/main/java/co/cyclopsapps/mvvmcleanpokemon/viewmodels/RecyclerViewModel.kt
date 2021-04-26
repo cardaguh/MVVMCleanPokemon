@@ -13,10 +13,10 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Created by Carlos Daniel Agudelo on 25/04/2021.
  */
-class RecyclerPokemonViewModel(app: Application): AndroidViewModel(app), CoroutineScope {
+class RecyclerPokemonViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
 
     private val _itemSelected = MutableLiveData<PokemonDataModel>()
-    val itemSelected: LiveData<PokemonDataModel> = _itemSelected
+    var itemDataSelected: PokemonDataModel? = null
 
     private val _listState = MutableLiveData<MutableList<PokemonDataModel>>()
     val listState: LiveData<MutableList<PokemonDataModel>> = _listState
@@ -26,7 +26,7 @@ class RecyclerPokemonViewModel(app: Application): AndroidViewModel(app), Corouti
 
     private val viewModelJob = Job()
     override val coroutineContext: CoroutineContext
-    get() = viewModelJob + Dispatchers.Default
+        get() = viewModelJob + Dispatchers.Default
 
     init {
         initObserver()
@@ -42,6 +42,10 @@ class RecyclerPokemonViewModel(app: Application): AndroidViewModel(app), Corouti
 
     fun clearSelection() {
         _itemSelected.value = null
+    }
+
+    fun setItemSelection(item: PokemonDataModel) {
+        itemDataSelected = item
     }
 
     fun fetchPokemonData() {

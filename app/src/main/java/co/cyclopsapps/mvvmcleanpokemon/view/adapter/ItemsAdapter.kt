@@ -4,17 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import co.cyclopsapps.mvvmcleanpokemon.R
 import co.cyclopsapps.mvvmcleanpokemon.databinding.PokemonRowBinding
 import co.cyclopsapps.mvvmcleanpokemon.model.PokemonDataModel
+import co.cyclopsapps.mvvmcleanpokemon.view.fragments.ClickListener
 import co.cyclopsapps.mvvmcleanpokemon.view.viewholder.ItemViewHolder
 
-class ItemsAdapter: RecyclerView.Adapter<ItemViewHolder>() {
-    val resource = R.layout.pokemon_row
+class ItemsAdapter(private val listener: ClickListener) : RecyclerView.Adapter<ItemViewHolder>() {
+    private val resource = R.layout.pokemon_row
     lateinit var context: Context
-    var onItemSelected = MutableLiveData<PokemonDataModel>()
     private val itemList = mutableListOf<PokemonDataModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -29,7 +28,7 @@ class ItemsAdapter: RecyclerView.Adapter<ItemViewHolder>() {
         holder.setItem(itemList[position])
 
         holder.itemView.setOnClickListener {
-            onItemSelected.value = itemList[position]
+            listener.itemSelect(itemList[position])
         }
     }
 
@@ -42,5 +41,4 @@ class ItemsAdapter: RecyclerView.Adapter<ItemViewHolder>() {
     override fun getItemCount(): Int {
         return itemList.size
     }
-
 }

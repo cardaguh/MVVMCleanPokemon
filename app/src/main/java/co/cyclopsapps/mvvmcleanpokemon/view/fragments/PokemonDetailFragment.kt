@@ -1,65 +1,56 @@
 package co.cyclopsapps.mvvmcleanpokemon.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import co.cyclopsapps.mvvmcleanpokemon.R
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import co.cyclopsapps.mvvmcleanpokemon.databinding.FragmentPokemonDetailBinding
+import co.cyclopsapps.mvvmcleanpokemon.viewmodels.RecyclerPokemonViewModel
+import com.bumptech.glide.Glide
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PokemonDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PokemonDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentPokemonDetailBinding? = null
+    private val binding get() = _binding!!
+
+    lateinit var viewModel: RecyclerPokemonViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        viewModel =
+            //viewmodel declarado como compartido, es decir se usa el contexto de la activitidad
+            activity?.let { ViewModelProvider(it).get(RecyclerPokemonViewModel::class.java) }!!
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pokemon_detail, container, false)
+    ): View {
+        _binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    //companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PokemonDetailFragment.
-         */
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            PokemonDetailFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    //}
+        viewModel.itemDataSelected?.let { data ->
+            Glide.with(requireContext()).load(data.img).into(binding.img)
+            binding.tvName.text = data.name
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
     companion object {
-        fun newInstance() = PokemonDetailFragment()
+        fun newInstance(
+
+        ) = PokemonDetailFragment()
     }
 }
