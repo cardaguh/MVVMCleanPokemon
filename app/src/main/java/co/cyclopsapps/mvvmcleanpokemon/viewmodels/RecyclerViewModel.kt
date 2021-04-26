@@ -21,6 +21,9 @@ class RecyclerPokemonViewModel(app: Application) : AndroidViewModel(app), Corout
     private val _listState = MutableLiveData<MutableList<PokemonDataModel>>()
     val listState: LiveData<MutableList<PokemonDataModel>> = _listState
 
+    private val _progressState = MutableLiveData<Boolean>()
+    val progressState: LiveData<Boolean> = _progressState
+
     private val repository = PokemonRepository()
     lateinit var observerOnCategorySelected: Observer<PokemonDataModel>
 
@@ -49,6 +52,7 @@ class RecyclerPokemonViewModel(app: Application) : AndroidViewModel(app), Corout
     }
 
     fun fetchPokemonData() {
+        _progressState.value = true
         viewModelScope.launch {
             val response = repository.getPokemon()
             response?.body()?.pokemon?.let { list ->
