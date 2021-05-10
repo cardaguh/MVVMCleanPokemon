@@ -1,4 +1,4 @@
-package co.cyclopsapps.mvvmcleanpokemon.view.fragments
+package co.cyclopsapps.mvvmcleanpokemon.view.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import co.cyclopsapps.mvvmcleanpokemon.databinding.FragmentPokemonDetailBinding
-import co.cyclopsapps.mvvmcleanpokemon.viewmodels.RecyclerPokemonViewModel
+import co.cyclopsapps.mvvmcleanpokemon.view.list.RecyclerPokemonViewModel
 import com.bumptech.glide.Glide
 
 class PokemonDetailFragment : Fragment() {

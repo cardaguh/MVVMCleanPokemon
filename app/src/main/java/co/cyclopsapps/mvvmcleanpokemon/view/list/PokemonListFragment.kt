@@ -1,4 +1,4 @@
-package co.cyclopsapps.mvvmcleanpokemon.view.fragments
+package co.cyclopsapps.mvvmcleanpokemon.view.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,25 +7,38 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.cyclopsapps.mvvmcleanpokemon.R
 import co.cyclopsapps.mvvmcleanpokemon.databinding.FragmentPokemonListBinding
 import co.cyclopsapps.mvvmcleanpokemon.model.PokemonDataModel
 import co.cyclopsapps.mvvmcleanpokemon.view.adapter.ItemsAdapter
-import co.cyclopsapps.mvvmcleanpokemon.viewmodels.RecyclerPokemonViewModel
+import co.cyclopsapps.mvvmcleanpokemon.view.detail.PokemonDetailFragment
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class PokemonListFragment : Fragment(), ClickListener {
-    lateinit var viewModel: RecyclerPokemonViewModel
+class PokemonListFragment : DaggerFragment(), ClickListener {
+
     lateinit var binding: FragmentPokemonListBinding
     private var mAdapter: ItemsAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel =
-            activity?.let { ViewModelProvider(it).get(RecyclerPokemonViewModel::class.java) }!!
-    }
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: RecyclerPokemonViewModel
+            by viewModels { viewModelFactory }
+
+    //viewModels nivel fragment
+    //activityViewModels nivel activity y se puede compartir con otros fragments
+
+    //Este se usa en vez de DaggerFragment()
+
+    /* override fun onAttach(context: Context) {
+         AndroidSupportInjection.inject(this)
+         super.onAttach(context)
+     }*/
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

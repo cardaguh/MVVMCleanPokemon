@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import co.cyclopsapps.mvvmcleanpokemon.R
 import co.cyclopsapps.mvvmcleanpokemon.databinding.ActivityMainBinding
+import dagger.android.support.AndroidSupportInjection
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

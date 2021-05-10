@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.cyclopsapps.mvvmcleanpokemon.R
 import co.cyclopsapps.mvvmcleanpokemon.databinding.PokemonRowBinding
 import co.cyclopsapps.mvvmcleanpokemon.model.PokemonDataModel
-import co.cyclopsapps.mvvmcleanpokemon.view.fragments.ClickListener
+import co.cyclopsapps.mvvmcleanpokemon.view.list.ClickListener
 import co.cyclopsapps.mvvmcleanpokemon.view.viewholder.ItemViewHolder
 
 class ItemsAdapter(private val listener: ClickListener) : RecyclerView.Adapter<ItemViewHolder>() {
